@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import MyForm from './Myform'
 
 class Add extends React.Component {
