@@ -37,7 +37,7 @@ def givedata():
         return json.dumps(table_json)
 
 @app.route('/todo/add',methods=['POST','OPTIONS'])
-def checktable():
+def addtotable():
    if request.method == "POST":
        details=request.get_json()
        username=details['username']
@@ -52,6 +52,32 @@ def checktable():
        return ({"username":username,"taskname":taskname})
    
    if request.method == "OPTIONS":
+       response = make_response()
+       response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+       response.headers.add('Access-Control-Allow-Headers', "Content-Type, Authorization")
+       response.headers.add('Access-Control-Allow-Methods', "POST")
+       response.headers.add('Access-Control-Allow-Credentials', 'true')
+       print('Before Returning')
+       return response
+
+@app.route('/todo/delete',methods=['POST','OPTIONS'])
+def deletefromtable():
+    if request.method == "POST":
+       details=request.get_json()
+       taskid=details['taskid']
+       username=details['username']
+       taskdate=details['taskdate']
+       tasktime=details['tasktime']
+       taskname=details['taskname']
+       print(taskid,username,taskname,taskdate,tasktime)
+       mydb=mysql.connector.connect(**config)
+       mycursor=mydb.cursor()
+       print("Entered Here :)")
+       mycursor.execute("DELETE FROM TODO WHERE TASKID=%s",(taskid,))
+       mydb.commit()
+       return details
+
+    if request.method == "OPTIONS":
        response = make_response()
        response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
        response.headers.add('Access-Control-Allow-Headers', "Content-Type, Authorization")

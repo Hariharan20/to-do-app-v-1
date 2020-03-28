@@ -1,6 +1,7 @@
 import React from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
+import Button from '@material-ui/core/Button';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
@@ -33,6 +34,34 @@ class SimpleTable  extends React.Component {
   
   }
 
+  deleteData(row) {
+    console.log(row)
+    fetch('http://localhost:3001/todo/delete',{
+        method:'POST',
+        mode:'cors',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body:JSON.stringify(row)
+      })      
+      .then(response => response.json())
+      .then(res => console.log(res));
+  }
+  
+  editData(row) {
+    console.log(row)
+    fetch('http://localhost:3001/todo/delete',{
+        method:'POST',
+        mode:'cors',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body:JSON.stringify(row)
+      })      
+      .then(response => response.json())
+      .then(res => console.log(res));
+    }
+
   render() {
     return (
       <TableContainer component={Paper}>
@@ -44,6 +73,8 @@ class SimpleTable  extends React.Component {
             <TableCell style={{color:'#FFF',fontFamily:'Montserrat',}} align="right">DATE&nbsp;(DD/MM/YY)</TableCell>
             <TableCell style={{color:'#FFF',fontFamily:'Montserrat',}} align="right">TIME&nbsp;(HH:MM)</TableCell>
             <TableCell style={{color:'#FFF',fontFamily:'Montserrat',}} align="right">TASK</TableCell>
+            <TableCell style={{color:'#FFF',fontFamily:'Montserrat',}} align="right">EDIT</TableCell>
+            <TableCell style={{color:'#FFF',fontFamily:'Montserrat',}} align="right">DELETE</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -56,6 +87,8 @@ class SimpleTable  extends React.Component {
               <TableCell style={{color:'#FFF',fontFamily:'Comfortaa',}} align="right">{row.taskdate}</TableCell>
               <TableCell style={{color:'#FFF',fontFamily:'Comfortaa',}} align="right">{row.tasktime}</TableCell>
               <TableCell style={{color:'#FFF',fontFamily:'Comfortaa',}} align="right">{row.taskname}</TableCell>
+              <TableCell align="right"><Button variant="contained" color="primary" onClick={this.editData.bind(this,row)}>Edit</Button></TableCell>
+              <TableCell align="right"><Button variant="contained" color="secondary" onClick={this.deleteData.bind(this,row)}>Delete</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>
