@@ -1,6 +1,6 @@
 import React from 'react';
-import {Row} from 'reactstrap';
 import './MyForm.css';
+import {  } from '@material-ui/core';
 
 class MyForm extends React.Component {
     constructor(props){ 
@@ -35,13 +35,24 @@ class MyForm extends React.Component {
       const {username,date,time,taskname} = this.state
       return ( 
         <div>
-          <form onSubmit={this.submitHandler}>
-            <Row><input type="text" name="username"  value={username} placeholder="Username" onChange={this.changeHandler}></input>
-            <input type="date" name="date"  value={date} placeholder="Date-of-Task(DD/MM/YYYY)" onChange={this.changeHandler}></input></Row>
-            <Row><input type="time" name="time"  value={time} placeholder="Time-of-Task(HH:MM),(24 hours)" onChange={this.changeHandler}></input>
-            <input type="text" name="taskname"  value={taskname} placeholder="Task-Name" onChange={this.changeHandler}></input></Row>
-            <Row><input type="submit" value="Add"></input></Row>
-          </form>
+          <div  className="container">
+            <div className="row">
+              <div className="col-6">
+                <h1>Fill the form to create <br></br>your own TO-DO</h1>
+              </div>
+              <div className="col-6">
+                <div>
+                  <form onSubmit={this.submitHandler}>
+                    <input type="text" name="username"  value={username} placeholder="Username" onChange={this.changeHandler} required></input>
+                    <input type="date" name="date"  value={date} placeholder="Date-of-Task(DD/MM/YYYY)" onChange={this.changeHandler} required></input>
+                    <input type="time" name="time"  value={time} placeholder="Time-of-Task(HH:MM),(24 hours)" onChange={this.changeHandler} required></input>
+                    <input type="text" name="taskname"  value={taskname} placeholder="Task-Name" onChange={this.changeHandler} required></input>
+                    <input className="button" type="submit" value="Add"></input>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
        );
     }

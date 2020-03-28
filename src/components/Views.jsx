@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,12 +6,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
-const useStyles = makeStyles({
-  table: {
-    minWidth: 550,
-  },
-});
+import './MyForm.css'
 
 class SimpleTable  extends React.Component {
   constructor(){
@@ -42,24 +36,26 @@ class SimpleTable  extends React.Component {
   render() {
     return (
       <TableContainer component={Paper}>
-      <Table className={useStyles.Table} aria-label="simple table">
+      <Table style={{backgroundColor:'#000',minWidth:550,}} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Date&nbsp;(DD/MM/YY)</TableCell>
-            <TableCell align="right">Time&nbsp;(HH:MM)</TableCell>
-            <TableCell align="right">Task</TableCell>
+          <TableCell style={{color:'#FFF',fontFamily:'Montserrat',}}>ID</TableCell>
+            <TableCell style={{color:'#FFF',fontFamily:'Montserrat',}} align="right">NAME</TableCell>
+            <TableCell style={{color:'#FFF',fontFamily:'Montserrat',}} align="right">DATE&nbsp;(DD/MM/YY)</TableCell>
+            <TableCell style={{color:'#FFF',fontFamily:'Montserrat',}} align="right">TIME&nbsp;(HH:MM)</TableCell>
+            <TableCell style={{color:'#FFF',fontFamily:'Montserrat',}} align="right">TASK</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {this.state.rows.map(row => (
-            <TableRow key={row.username}>
-              <TableCell component="th" scope="row">
-                {row.username}
+            <TableRow key={row.taskid}>
+              <TableCell style={{color:'#FFF',fontFamily:'Comfortaa',}} component="th" scope="row">
+                {row.taskid}
               </TableCell>
-              <TableCell align="right">{row.taskdate}</TableCell>
-              <TableCell align="right">{row.tasktime}</TableCell>
-              <TableCell align="right">{row.taskname}</TableCell>
+              <TableCell style={{color:'#FFF',fontFamily:'Comfortaa',}} align="right">{row.username}</TableCell>
+              <TableCell style={{color:'#FFF',fontFamily:'Comfortaa',}} align="right">{row.taskdate}</TableCell>
+              <TableCell style={{color:'#FFF',fontFamily:'Comfortaa',}} align="right">{row.tasktime}</TableCell>
+              <TableCell style={{color:'#FFF',fontFamily:'Comfortaa',}} align="right">{row.taskname}</TableCell>
             </TableRow>
           ))}
         </TableBody>
