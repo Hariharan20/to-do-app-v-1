@@ -1,5 +1,6 @@
 import React from 'react';
 import {Row} from 'reactstrap';
+import './MyForm.css';
 
 class MyForm extends React.Component {
     constructor(props){ 
@@ -19,7 +20,7 @@ class MyForm extends React.Component {
     submitHandler = e =>{
       e.preventDefault()
       console.log(this.state) 
-      fetch('http://localhost:3001/auth',{
+      fetch('http://localhost:3001/todo/add',{
         method:'POST',
         mode:'cors',
         headers: {

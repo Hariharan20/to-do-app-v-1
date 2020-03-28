@@ -21,9 +21,9 @@ config = {
 }
  
 
-@app.route('/getdata', methods=['POST'])
+@app.route('/todo', methods=['GET'])
 def givedata():
-    if request.method == 'POST':
+    if request.method == 'GET':
         mydb=mysql.connector.connect(**config)
         mycursor=mydb.cursor()
         Table=[]
@@ -36,7 +36,7 @@ def givedata():
             table_json.append(temp)
         return json.dumps(table_json)
 
-@app.route('/auth', methods=['POST','OPTIONS'])
+@app.route('/todo/add',methods=['POST','OPTIONS'])
 def checktable():
    if request.method == "POST":
        details=request.get_json()

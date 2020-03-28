@@ -10,7 +10,7 @@ import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
+    minWidth: 550,
   },
 });
 
@@ -20,12 +20,11 @@ class SimpleTable  extends React.Component {
     this.state = { 
       rows : []  
     };
-     /*const classes = useStyles() className={classes.Table};*/
   }
   
   componentDidMount() {
-    fetch('http://localhost:3001/getdata',{
-      method:'POST'}
+    fetch('http://localhost:3001/todo',{
+      method:'GET'}
     )
     .then(response => response.json())
     .then((Data) => {
@@ -43,7 +42,7 @@ class SimpleTable  extends React.Component {
   render() {
     return (
       <TableContainer component={Paper}>
-      <Table aria-label="simple table">
+      <Table className={useStyles.Table} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
