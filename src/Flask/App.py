@@ -27,12 +27,12 @@ def givedata():
         mydb=mysql.connector.connect(**config)
         mycursor=mydb.cursor()
         Table=[]
-        mycursor.execute("SELECT USERNAME,DATE_FORMAT(TASKDATE,'%d/%m/%y'),DATE_FORMAT(TASKTIME,'%H:%i'),TASK FROM TODO")
+        mycursor.execute("SELECT TASKID,USERNAME,DATE_FORMAT(TASKDATE,'%d/%m/%y'),DATE_FORMAT(TASKTIME,'%H:%i'),TASK FROM TODO")
         for x in mycursor:
             Table.append(list(x))
         table_json=[]
         for row in Table:
-            temp={'username':row[0],'taskdate':row[1],'tasktime':row[2],'taskname':row[3]}
+            temp={'taskid':row[0],'username':row[1],'taskdate':row[2],'tasktime':row[3],'taskname':row[4]}
             table_json.append(temp)
         return json.dumps(table_json)
 
@@ -47,7 +47,7 @@ def checktable():
        mydb=mysql.connector.connect(**config)
        mycursor=mydb.cursor()
        print("Entered Here :)")
-       mycursor.execute("INSERT INTO TODO VALUES(%s,%s,%s,%s)",(username,taskdate,tasktime,taskname))
+       mycursor.execute("INSERT INTO TODO(USERNAME,TASKDATE,TASKTIME,TASK) VALUES(%s,%s,%s,%s)",(username,taskdate,tasktime,taskname))
        mydb.commit()
        return ({"username":username,"taskname":taskname})
    
