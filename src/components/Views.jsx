@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import './MyForm.css'
+import { BrowserRouter, Route  } from 'react-router-dom'
+
 
 class SimpleTable  extends React.Component {
   constructor(){
@@ -50,17 +52,13 @@ class SimpleTable  extends React.Component {
   
   editData(row) {
     console.log(row)
-    fetch('http://localhost:3001/todo/delete',{
-        method:'POST',
-        mode:'cors',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body:JSON.stringify(row)
-      })      
-      .then(response => response.json())
-      .then(res => console.log(res));
-    }
+    localStorage.setItem('username',JSON.stringify(row.username));
+    localStorage.setItem('taskid',JSON.stringify(row.taskid));
+    localStorage.setItem('taskdate',JSON.stringify(row.taskdate));
+    localStorage.setItem('tasktime',JSON.stringify(row.tasktime));
+    localStorage.setItem('taskname',JSON.stringify(row.taskname));
+    this.props.history.push({pathname:'/edit'})
+  }
 
   render() {
     return (
