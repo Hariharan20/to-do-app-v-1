@@ -99,3 +99,7 @@ h2{
       max-width: 50%;
 }
 
+.col-8{
+      flex:0 0 80%;
+      max-width: 80%;
+}

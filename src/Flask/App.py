@@ -50,6 +50,60 @@ def addtotable():
        mycursor.execute("INSERT INTO TODO(USERNAME,TASKDATE,TASKTIME,TASK) VALUES(%s,%s,%s,%s)",(username,taskdate,tasktime,taskname))
        mydb.commit()
        return ({"username":username,"taskname":taskname})
+
+   if request.method == "OPTIONS":
+       response = make_response()
+       response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+       response.headers.add('Access-Control-Allow-Headers', "Content-Type, Authorization")
+       response.headers.add('Access-Control-Allow-Methods', "POST")
+       response.headers.add('Access-Control-Allow-Credentials', 'true')
+       print('Before Returning')
+       return response
+
+@app.route('/todo/convert',methods=['POST','OPTIONS'])
+def convertdata():
+   if request.method == "POST":
+       details=request.get_json()
+       taskid=details['taskid']
+       username=details['username']
+       taskdate=details['taskdate']
+       tasktime=details['tasktime']
+       taskname=details['taskname']
+       print(taskid,taskdate,taskname,tasktime,username)
+       print("Entered Here :)")
+       year=int(taskdate[len(taskdate)-2:])
+       if(year>0 and year<69):
+           taskdate="20"+taskdate[len(taskdate)-2:]+"-"+taskdate[3:5]+"-"+taskdate[:2]
+       else:
+           taskdate="19"+taskdate[len(taskdate)-2:]+"-"+taskdate[3:5]+"-"+taskdate[:2]
+       print(taskid,taskdate,taskname,tasktime,username)
+       return ({"taskid":taskid,"username":username,"taskname":taskname,"taskdate":taskdate,"tasktime":tasktime})
+   
+   if request.method == "OPTIONS":
+       response = make_response()
+       response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+       response.headers.add('Access-Control-Allow-Headers', "Content-Type, Authorization")
+       response.headers.add('Access-Control-Allow-Methods', "POST")
+       response.headers.add('Access-Control-Allow-Credentials', 'true')
+       print('Before Returning')
+       return response
+
+@app.route('/todo/edit',methods=['POST','OPTIONS'])
+def editdata():
+   if request.method == "POST":
+       details=request.get_json()
+       taskid=details['taskid']
+       username=details['username']
+       taskdate=details['taskdate']
+       tasktime=details['tasktime']
+       taskname=details['taskname']
+       print(taskid,taskdate,taskname,tasktime,username)
+       mydb=mysql.connector.connect(**config)
+       mycursor=mydb.cursor()
+       print("Entered Here :)")
+       mycursor.execute("UPDATE TODO SET USERNAME=%s,TASKDATE=%s,TASK=%s,TASKTIME=%s WHERE TASKID=%s",(username,taskdate,taskname,tasktime,taskid))
+       mydb.commit()
+       return (details)
    
    if request.method == "OPTIONS":
        response = make_response()
