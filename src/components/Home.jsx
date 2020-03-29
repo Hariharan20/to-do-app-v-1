@@ -12,3 +12,5 @@ class Home extends React.Component {
     }
   }
 export default Home;
+
+//Home class is used to display which routes are to be used and their corresponding purposes

@@ -6,19 +6,20 @@ class MyForm extends React.Component {
     constructor(props){ 
       super(props) 
       this.state = { 
-          username:'',
-          date:'',
-          time:'',
-          taskname:''
+          username:'',    // Holds input username
+          date:'',        // Holds input date
+          time:'',        // Holds input time
+          taskname:''     // Holds input taskname
         }
     }
 
     changeHandler = e =>{
       this.setState({[e.target.name]:e.target.value})
     }
+    //State will be set to given input value on changes to the input field
 
-    submitHandler = e =>{
-      e.preventDefault()
+    submitHandler = e =>{         // This function is invoked to submit the input data to the table
+      e.preventDefault()          // Prevents browser to refresh
       console.log(this.state) 
       fetch('http://localhost:3001/todo/add',{
         method:'POST',
@@ -30,6 +31,7 @@ class MyForm extends React.Component {
       })      
       .then(response => response.json())
       .then(res => console.log(res))
+      // The request is made to my Flask app's add in order to add data to the To-Do table
     }
     render() { 
       const {username,date,time,taskname} = this.state
@@ -58,3 +60,5 @@ class MyForm extends React.Component {
     }
   }
   export default MyForm;
+
+  // MyForm Class comtains Form to add an entry to the table

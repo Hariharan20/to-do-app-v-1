@@ -13,7 +13,7 @@ class SimpleTable  extends React.Component {
   constructor(){
     super();
     this.state = { 
-      rows : []  
+      rows : []   // rows holds all entries of our To-Do table
     };
   }
   
@@ -23,19 +23,20 @@ class SimpleTable  extends React.Component {
     )
     .then(response => response.json())
     .then((Data) => {
-      // jsonData is parsed json object received from url
+      // Data is parsed json object received from url
       console.log(Data)
+      // State's row values are set to received Data
       this.setState({rows:Data})
     })
     .catch((error) => {
       // handle your errors here
       console.error(error)
     })
-  
+    // The GET request is made to my Flask app in order to receive data from the To-Do table
   }
 
-  deleteData(row) {
-    console.log(row)
+  deleteData(row) {   // This function is invoked in order to delete data from the To-Do Table
+    console.log(row)  // row contains the data of the row to be deleted
     fetch('http://localhost:3001/todo/delete',{
         method:'POST',
         mode:'cors',
@@ -43,12 +44,12 @@ class SimpleTable  extends React.Component {
           "Content-Type": "application/json"
         },
         body:JSON.stringify(row)
-      })      
+      })             // POST request is made to my Flask App to delete the given row
       .then(response => response.json())
       .then(res => console.log(res));
   }
   
-  editData(row) {
+  editData(row) {   // This function is invoked in-order-to edit the data of input row
     console.log(row)
     fetch('http://localhost:3001/todo/convert',{
         method:'POST',
@@ -57,21 +58,34 @@ class SimpleTable  extends React.Component {
           "Content-Type": "application/json"
         },
         body:JSON.stringify(row)
-      })
+      })           // POST request is made to my Flask App to get correct jsonData for this row
     .then(response => response.json())
     .then((Data) => {
-      // jsonData is parsed json object received from url
+      // Data is parsed json object received from url
       console.log("We get ",Data)
+      // Data contains the actual json values to work that will be stored as localStorage
       localStorage.setItem('username',JSON.stringify(Data.username));
       localStorage.setItem('taskid',JSON.stringify(Data.taskid));
       localStorage.setItem('taskdate',JSON.stringify(Data.taskdate));
       localStorage.setItem('tasktime',JSON.stringify(Data.tasktime));
       localStorage.setItem('taskname',JSON.stringify(Data.taskname));
+      // After setting the values it is redirected to edit route
+      // The form will be displayed there which has these json values as 
+      //default values for the form
       this.props.history.push({pathname:'/edit'})
     })
   }
 
   render() {
+    /* Here the To-Do Table's ID is primary key of our Dynamic Table
+      It contains Username,ToDoDate,ToDoTime,ToDo as other columns of To-Do Table
+      Additionaly each row has edit and delete button
+      Edit    - Edit entries of the current row of To-Do Table
+      Delete  - Delte entries of the current row of To-Do Table
+
+      Each entry from state's rows is mapped as a row and each
+      cell entry is displayed from map(row) data
+    */
     return (
       <TableContainer component={Paper}>
       <Table style={{backgroundColor:'#000',minWidth:550,}} aria-label="simple table">
@@ -108,7 +122,7 @@ class SimpleTable  extends React.Component {
 }
  
 export default SimpleTable;
-
-
-
-/* */
+/*
+  SimpleTable Class is used to view the To-Do table data in form of a table
+  Each row of the table is actually a row of the To-Do table
+*/

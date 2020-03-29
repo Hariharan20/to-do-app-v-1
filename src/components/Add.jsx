@@ -9,4 +9,5 @@ class Add extends React.Component {
   }
    
   export default Add;
-  
+  //Add Class is used to add To-Do entry to the Table
+  //It imports form from MyForm class
