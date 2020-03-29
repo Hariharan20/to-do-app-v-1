@@ -19,8 +19,9 @@ config = {
 'password':password,
 'database':database
 }
- 
+# Values are Imported from.env file
 
+#todo route is used to fetch all data from the To-Do Database
 @app.route('/todo', methods=['GET'])
 def givedata():
     if request.method == 'GET':
@@ -36,6 +37,7 @@ def givedata():
             table_json.append(temp)
         return json.dumps(table_json)
 
+#todo/add route is added to insert the values into todo table
 @app.route('/todo/add',methods=['POST','OPTIONS'])
 def addtotable():
    if request.method == "POST":
@@ -60,6 +62,8 @@ def addtotable():
        print('Before Returning')
        return response
 
+#todo/convert route is made to convert data in the table to proper json format 
+#to set as default value to be edited
 @app.route('/todo/convert',methods=['POST','OPTIONS'])
 def convertdata():
    if request.method == "POST":
@@ -88,6 +92,9 @@ def convertdata():
        print('Before Returning')
        return response
 
+#todo/edit route is added to edit the values which are sent 
+#as default data from converted json value(todo/convert)
+#the route is used to store edited input data
 @app.route('/todo/edit',methods=['POST','OPTIONS'])
 def editdata():
    if request.method == "POST":
@@ -114,6 +121,7 @@ def editdata():
        print('Before Returning')
        return response
 
+#todo/delete route is used to delete the input data from the To-Do
 @app.route('/todo/delete',methods=['POST','OPTIONS'])
 def deletefromtable():
     if request.method == "POST":
